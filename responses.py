@@ -1,0 +1,3 @@
+import gpt_integration
+def get_response(message: str) -> str:
+    return gpt_integration.accost_gpt(message)

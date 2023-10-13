@@ -1,4 +1,4 @@
+# https://www.youtube.com/watch?v=1yLfjMtsV9s
 import bot
 
-if __name__ == "main__":
-    bot.run_discord_bot()
+bot.run_discord_bot()
