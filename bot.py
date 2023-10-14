@@ -36,7 +36,7 @@ def run_discord_bot():
     async def on_ready():
         print(f'{client.user} is now running')
         try:
-            await client.get_channel(bot_channel).send(responses.get_response("respond with \"I live\""))
+            await client.get_channel(bot_channel).send(responses.get_response("FFFrespond with \"I live\" exactly"))
         except Exception as e:
             print (e)
     
