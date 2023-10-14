@@ -1,8 +1,13 @@
 # https://www.geeksforgeeks.org/how-to-use-chatgpt-api-in-python/
-
+from decouple import config
 import openai 
 
-openai.api_key = "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"
+openai_api_key = config("OPENAI_API_KEY")
+if not openai_api_key:
+    raise ValueError("where ai key")
+
+openai.api_key = openai_api_key
+
 messages = [ {"role": "system", "content": "repeat every prompt. You are an intelligent assistant who is healthcare focused. Keep your responses under 1900 characters."} ]
 
 # really ideal

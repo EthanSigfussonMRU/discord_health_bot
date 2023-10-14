@@ -1,8 +1,11 @@
-import time
+from decouple import config
+import locale
+config.encoding = locale.getpreferredencoding(False)
 
+# Retrieve the OpenAI API key using decouple
+openai_api_key = config("OPENAI_API_KEY")
 
-t = time.localtime()
-current_time = time.strftime("%H:%M:%S", t)
-print(current_time)
+if not openai_api_key:
+    raise ValueError("OPENAI_API_KEY not found in .env file")
 
-print (f"{time} this is the time")
+print(f"OPENAI_API_KEY: {openai_api_key}")
