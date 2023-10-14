@@ -3,8 +3,6 @@ import discord
 import responses
 import datetime as dt
 
-import time
-
 start_time = dt.datetime.now()
 counter = 0
 bot_channel = 1162548640053723137

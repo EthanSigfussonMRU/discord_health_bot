@@ -5,6 +5,7 @@ import openai
 openai.api_key = "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"
 messages = [ {"role": "system", "content": "repeat every prompt. You are an intelligent assistant who is healthcare focused. Keep your responses under 1900 characters."} ]
 
+# really ideal
 def accost_gpt(message) -> str:
 	if message: 
 		messages.append( {"role": "user", "content": message},) 
