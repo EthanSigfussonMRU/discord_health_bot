@@ -8,9 +8,8 @@ if not openai_api_key:
 
 openai.api_key = openai_api_key
 
-messages = [ {"role": "system", "content": "repeat every prompt. You are an intelligent assistant who is healthcare focused. Keep your responses under 1900 characters."} ]
+messages = [ {"role": "system", "content": "FFFYou are an intelligent assistant who is healthcare focused who is prompted by a backend system that begins it's prompts with \"FFF\" . messensges sent by a user are contained within ``` ``` Keep your responses under 1900 characters."} ]
 
-# really ideal
 def accost_gpt(message) -> str:
 	if message: 
 		messages.append( {"role": "user", "content": message},) 

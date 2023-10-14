@@ -3,11 +3,21 @@ from decouple import config
 import discord
 import responses
 import datetime as dt
+import datetime
 
 start_time = dt.datetime.now()
 counter = 0
 bot_channel = 1162548640053723137
 TOKEN = config("DISCORD_BOT_TOKEN")
+
+utc = datetime.timezone.utc
+times = [
+    datetime.time(hour=8, tzinfo=utc),
+    datetime.time(hour=4, minute=6, tzinfo=utc),
+    datetime.time(hour=16, minute=40, second=30, tzinfo=utc)
+]
+
+
 if not TOKEN:
     raise ValueError("where is bot token")
 
@@ -24,15 +34,16 @@ def run_discord_bot():
     intents.message_content = True
     client = discord.Client(intents=intents)
 
-    current_time = dt.datetime.now()
+    #hook onto a single user
+    main_user = client.get_user(None)
 
-    @tasks.loop(seconds=10)  # task runs every 10 seconds
-    async def my_background_task(self):
-        channel = self.get_channel(bot_channel)  # channel ID goes here
-        self.counter += 1
-        await channel.send(responses.get_response(f"add 1 to the following number and respond with only that result {self.counter}"))
     
     ##on certain amount of time passing
+    @tasks.loop(time=times)
+    async def prompt (self):
+        print("My task is running!")
+        await client.get_channel(bot_channel).send(responses.get_response("FFFsay \"I live\""))
+
 
     ## on start
     @client.event
@@ -53,6 +64,9 @@ def run_discord_bot():
         user_message = str(message.content)
         channel = str(message.channel)
 
+        #hook onto main user 
+        if message.author != None:
+            main_user = message.author
         print(f'{username} said: "{user_message}" ({channel})')
 
         await send_message(message, user_message, )
