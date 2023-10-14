@@ -1,23 +1,14 @@
-from discord.ext import tasks
+from discord.ext import tasks, commands
 from decouple import config
 import discord
 import responses
 import datetime as dt
-import datetime
 
-start_time = dt.datetime.now()
-counter = 0
+start_time = dt.datetime.now() #to be used
+
 bot_channel = 1162548640053723137
+#token handeling
 TOKEN = config("DISCORD_BOT_TOKEN")
-
-utc = datetime.timezone.utc
-times = [
-    datetime.time(hour=8, tzinfo=utc),
-    datetime.time(hour=4, minute=6, tzinfo=utc),
-    datetime.time(hour=16, minute=40, second=30, tzinfo=utc)
-]
-
-
 if not TOKEN:
     raise ValueError("where is bot token")
 
@@ -38,19 +29,14 @@ def run_discord_bot():
     main_user = client.get_user(None)
 
     
-    ##on certain amount of time passing
-    @tasks.loop(time=times)
-    async def prompt (self):
-        print("My task is running!")
-        await client.get_channel(bot_channel).send(responses.get_response("FFFsay \"I live\""))
-
-
+    
+    
     ## on start
     @client.event
     async def on_ready():
         print(f'{client.user} is now running')
         try:
-            await client.get_channel(bot_channel).send(responses.get_response("say \"I live\""))
+            await client.get_channel(bot_channel).send(responses.get_response("respond with \"I live\""))
         except Exception as e:
             print (e)
     
@@ -70,4 +56,12 @@ def run_discord_bot():
         print(f'{username} said: "{user_message}" ({channel})')
 
         await send_message(message, user_message, )
+    
+
+    @tasks.loop(seconds=5)  # task runs every 60 seconds
+    async def my_background_task(self):
+        channel = self.get_channel(bot_channel)  # channel ID goes here
+        self.counter += 1
+        print("182192391283918239")
+
     client.run(TOKEN)
